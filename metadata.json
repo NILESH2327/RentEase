@@ -1,0 +1,6 @@
+{
+  "name": "RentEase",
+  "description": "A peer-to-peer student rental marketplace for books, calculators, lab equipment, and more.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

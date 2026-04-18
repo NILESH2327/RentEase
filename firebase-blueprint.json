@@ -1,0 +1,100 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Student user profile",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "email": { "type": "string" },
+        "college": { "type": "string" },
+        "isVerified": { "type": "boolean" },
+        "rating": { "type": "number" },
+        "photoURL": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email"]
+    },
+    "Listing": {
+      "title": "Listing",
+      "description": "Item available for rent",
+      "type": "object",
+      "properties": {
+        "ownerId": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "category": { "type": "string" },
+        "price": { "type": "number" },
+        "deposit": { "type": "number" },
+        "images": { "type": "array" },
+        "status": { "type": "string", "enum": ["available", "rented", "removed"] },
+        "condition": { "type": "string" },
+        "location": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["ownerId", "title", "price", "status"]
+    },
+    "Rental": {
+      "title": "Rental",
+      "description": "Rental transaction",
+      "type": "object",
+      "properties": {
+        "listingId": { "type": "string" },
+        "renterId": { "type": "string" },
+        "ownerId": { "type": "string" },
+        "startDate": { "type": "string", "format": "date-time" },
+        "endDate": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "enum": ["requested", "active", "completed", "cancelled"] },
+        "totalPrice": { "type": "number" },
+        "deposit": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["listingId", "renterId", "status"]
+    },
+    "Chat": {
+      "title": "Chat",
+      "description": "Conversation between two users",
+      "type": "object",
+      "properties": {
+        "participants": { "type": "array" },
+        "listingId": { "type": "string" },
+        "lastMessage": { "type": "string" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "Message": {
+      "title": "Message",
+      "description": "Individual message in a chat",
+      "type": "object",
+      "properties": {
+        "chatId": { "type": "string" },
+        "senderId": { "type": "string" },
+        "text": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "listings/{listingId}": {
+      "schema": "Listing",
+      "description": "Available items"
+    },
+    "rentals/{rentalId}": {
+      "schema": "Rental",
+      "description": "Rental transactions"
+    },
+    "chats/{chatId}": {
+      "schema": "Chat",
+      "description": "Conversations"
+    },
+    "chats/{chatId}/messages/{messageId}": {
+      "schema": "Message",
+      "description": "Messages within a chat"
+    }
+  }
+}
